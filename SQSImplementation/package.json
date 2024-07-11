@@ -1,0 +1,23 @@
+{
+  "name": "sqsimplementation",
+  "version": "1.0.0",
+  "description": "This folder consists in an implementation of the concepts about Amazon SQS.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./public/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1658.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "node-cron": "^3.0.3",
+    "request": "^2.88.2"
+  }
+}

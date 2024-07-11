@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <title>Gerador de Imagens - SQS</title>
+</head>
+<body>
+  <div x-data="initialize()">
+
+    <h1>Gerador de imagens</h1>
+    
+    <div>
+      <label>Quantidade de imagens a serem geradas:</label>
+      <input type="text" x-model="imgs">
+    </div>
+    
+    <button @click="requestImages">GERAR</button>
+  </div>
+  </body>
+<script>
+  function initialize(){
+    return{
+      imgs: 0,
+      async requestImages(){
+        const body = JSON.stringify({imgs: this.imgs});
+        await fetch('/request_images', 
+          {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: body
+          }
+        )
+      }
+    }
+  }
+</script>
+</html>

@@ -1,5 +1,4 @@
 import fs from 'fs';
-import request from 'request';
 import aws from 'aws-sdk';
 import dotenv from 'dotenv';
 import cron from 'node-cron';
@@ -7,6 +6,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
+const axios = require('axios');
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const envPath = path.resolve(__dirname, '../.env');
@@ -18,11 +18,33 @@ aws.config.update({ region: 'sa-east-1' });
 
 const sqs = new aws.SQS();
 
-const generateImage = (fileName, err) => {
-  err ? console.log("Error: " + err) :
-    request('https://random-image-pepebigotes.vercel.app/api/random-image').pipe(
-      fs.createWriteStream(__dirname + '/imgs/' + fileName + '.png')
-    );
+const generateImage = async (fileName, err) => {
+  if (err) {
+    console.log("Error: " + err);
+    return;
+  }
+
+  try {
+    const response = await axios({
+      url: 'https://random-image-pepebigotes.vercel.app/api/random-image',
+      responseType: 'stream'
+    });
+
+    const filePath = path.join(__dirname, 'imgs', `${fileName}.png`);
+    const writer = fs.createWriteStream(filePath);
+
+    response.data.pipe(writer);
+
+    writer.on('finish', () => {
+      console.log('Image downloaded and saved as ' + fileName + '.png');
+    });
+
+    writer.on('error', (error) => {
+      console.error('Error writing file:', error);
+    });
+  } catch (error) {
+    console.error('Error fetching image:', error);
+  }
 };
 
 const cycleProcess = () => {

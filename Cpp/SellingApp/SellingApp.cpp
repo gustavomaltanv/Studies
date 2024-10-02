@@ -41,7 +41,7 @@ void GetList(vector<Item> L) {
 
 bool KeepBuying() {
     int keep;
-
+    
     while (true)
     {
         cout << "Deseja continuar comprando?" << endl;
@@ -107,7 +107,7 @@ void CreditMethod() {
         cin >> parcelas;
         system("cls");
         if (parcelas >= 1 && parcelas <= 12) {
-            cout << "Compra paga em " << parcelas << "parcelas.";
+            cout << "Compra paga pelo credito (" << parcelas << " parcelas).";
             break;
         }
         cout << "Opcao invalida, tente novamente....";
@@ -136,21 +136,22 @@ void GetPaymentMethod() {
             break;
 
         case 1:
-            cout << "Compra paga.";
+            cout << "Compra paga pelo dinheiro.";
             return;
             break;
 
         case 2:
-            
-            
+            CreditMethod();
+            return;
             break;
+
         case 3:
-            cout << "Compra cancelada.";
+            cout << "Compra paga pelo debito.";
             return;
             break;
 
         default:
-            cout << "Opcao invalida, tente novamente...";
+            cout << "Opcao invalida, tente novamente..." << endl;
             break;
         }
         

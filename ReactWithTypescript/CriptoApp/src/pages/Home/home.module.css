@@ -62,12 +62,41 @@ table td {
   font-size: 18px;
 }
 
+.name {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.logo {
+  width: 20px;
+  transition: all 1s;
+}
+
+.logo:hover {
+  transform: scale(1.5);
+  z-index: 99;
+}
+
 .profit {
   color: #12f98a;
 }
 
 .loss {
   color: #f91257;
+}
+
+.buttonMore {
+  background-color: #0C2D40;
+  padding: 8px 24px;
+  color: #cdcdcd;
+  margin: 14px 0;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.buttonMore:hover {
+  filter: brightness(1.1);
 }
 
 @media screen and (max-width: 600px) {
@@ -110,12 +139,16 @@ table td {
   }
 
   td:first-child,
-th:first-child {
-  border-radius: 0;
-}
+  th:first-child {
+    border-radius: 0;
+  }
 
-td:last-child,
-th:last-child {
-  border-radius: 0;
-}
+  td:last-child,
+  th:last-child {
+    border-radius: 0;
+  }
+
+  .name img{
+    margin-left: 14px;
+  }
 }
